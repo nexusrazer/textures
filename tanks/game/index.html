@@ -3,39 +3,62 @@
 <head>
 	<script src="js/jquery-2.2.0.js"></script>
 <style> 
+
+body{
+	background: black;
+	width:100%;
+	margin:0px;
+}
+
+#battleground{
+	background: white;
+	vertical-align: middle;
+	width:100%;
+	height:70%;
+	position: absolute;
+	top: 50%;
+   	transform: translate(0, -50%);
+}
+
 .cannon_barell_1 {
-    height: 70px;
-    position: absolute;
+    width: 13%;
     z-index:10;
-    top:50px;
+    margin-top:auto;
+    margin-bottom:auto;
+    top: 50%;
+   	transform: translate(0, -50%);
+   	position: absolute;
 }
 
 .cannon_barell_2 {
-    height: 50px;
+    width: 12%;
     position: absolute;
     z-index:5;
-    top:60px;
-    left:460px;
+    top: 50%;
+   	transform: translate(0, -50%);
+    left:13%;
 }
 
 .bullet_1{
-	height: 30px;
-	left: 815px;
-	top: 70px;
+	width: 1%;
+	left: 25%;
+	top: 50%;
+   	transform: translate(0, -50%);
 	position: absolute;
 }
 
 .fire_1{
-	height: 140px;
-	top: 15px;
-	left: 840px;
+	width:2%;
+	top: 50%;
+	transform: translate(0, -50%);
 	position: absolute;
+	left: 24%;
 	z-index: 20;
 }
 
 .bullet_1_animate{
 	animation-name: bullet_1;
-    animation-duration: 0.5s;
+    animation-duration: 0.3s;
 }
 
 .cannon_barell_1_animate{
@@ -54,28 +77,45 @@
 }
 
 @keyframes cannon_barell_2 {
-    0%   {left:460px;}
-    100% {left:400px;}
+    0%   {left:10%;}
+    100% {left:9%;}
 }
 
 @keyframes bullet_1 {
-    0%   {left:815px;}
-    100% {left:1850px;}
-}
-
-body{
-	width:100%;
+    0%   {left:25%;}
+    100% {left:75%;}
 }
 
 .hidden{
 	display: none;
 }
 
+.middle_splitter{
+	display: block;
+	border-right:1px dashed gray;
+	position:fixed;
+	top: 50%;
+	transform: translate(0, -50%);
+	width: 50%;
+	height: 100%;
+	background-color: transparent;
+}
+
+#instructions{
+	width:2%;
+	bottom:20px;
+	right: 20px;
+	position: fixed;
+}
 
 </style>
 	<script>
 	$(document).ready(function(){
-		$("#shoot_1").click(function() {
+		$("#instructions").click(function(){
+			alert("Click to shoot!\nHave Fun!");
+		});
+
+		$("#battleground").click(function() {
 			$("#cannon_barell_1").addClass("cannon_barell_1_animate");
 			$("#cannon_barell_2").addClass("cannon_barell_2_animate");
 			$("#bullet_1").removeClass("hidden");
@@ -85,8 +125,8 @@ body{
 			document.getElementById('audiotag1').play();
 			document.getElementById('audiotag1').currentTime=0;
 			window.setTimeout( remove_animation_cannon, 200 );
-			window.setTimeout( remove_animation_bullet, 500 );
-			window.setTimeout( remove_animation_fire, 50 );
+			window.setTimeout( remove_animation_bullet, 300 );
+			window.setTimeout( remove_animation_fire, 100 );
 		});
 	});
 
@@ -108,17 +148,16 @@ body{
 	</script>
 </head>
 <body>
-
-<div id="battleground">
-	<img src="img/cannon_barell_1.png" id="cannon_barell_1" class="cannon_barell_1"/>
-	<img src="img/cannon_barell_2.png" id="cannon_barell_2" class="cannon_barell_2"/>
-	<img src="img/bullet_1.png" id="bullet_1" class="hidden bullet_1"/>
-	<img src="img/fire.png" id="fire_1" class="hidden fire_1"/>
-	<button id="shoot_1">shoot</button>
-
-
-	<audio id="audiotag1" src="sound/cannon_shoot.mp3" preload="auto"></audio>
-</div>
-
+	<div id="canvas">
+		<div id="battleground">
+			<img src="img/cannon_barell_1.png" id="cannon_barell_1" class="cannon_barell_1"/>
+			<img src="img/cannon_barell_2.png" id="cannon_barell_2" class="cannon_barell_2"/>
+			<img src="img/bullet_1.png" id="bullet_1" class="hidden bullet_1"/>
+			<img src="img/explosion-1.gif" id="fire_1" class="hidden fire_1"/>
+			<audio id="audiotag1" src="sound/cannon_shoot.mp3" preload="auto"></audio>
+			<div class="middle_splitter"></div>
+		</div>
+		<img src="img/Help-icon.png" id="instructions"/>
+	</div>
 </body>
 </html>
