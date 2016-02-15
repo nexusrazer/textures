@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/jquery-2.2.0.js"></script>
+<style> 
+.cannon_barell_1 {
+    height: 70px;
+    position: absolute;
+    z-index:10;
+    top:50px;
+}
+
+.cannon_barell_2 {
+    height: 50px;
+    position: absolute;
+    z-index:5;
+    top:60px;
+    left:460px;
+}
+
+.bullet_1{
+	height: 30px;
+	left: 815px;
+	top: 70px;
+	position: absolute;
+}
+
+.fire_1{
+	height: 140px;
+	top: 15px;
+	left: 840px;
+	position: absolute;
+	z-index: 20;
+}
+
+.bullet_1_animate{
+	animation-name: bullet_1;
+    animation-duration: 0.5s;
+}
+
+.cannon_barell_1_animate{
+	animation-name: cannon_barell_1;
+    animation-duration: 0.2s;
+}
+
+.cannon_barell_2_animate{
+	animation-name: cannon_barell_2;
+    animation-duration: 0.2s;
+}
+
+@keyframes cannon_barell_1 {
+    0%   {left:0px;}
+    100% {left:-10px;}
+}
+
+@keyframes cannon_barell_2 {
+    0%   {left:460px;}
+    100% {left:400px;}
+}
+
+@keyframes bullet_1 {
+    0%   {left:815px;}
+    100% {left:1850px;}
+}
+
+body{
+	width:100%;
+}
+
+.hidden{
+	display: none;
+}
+
+
+</style>
+	<script>
+	$(document).ready(function(){
+		$("#shoot_1").click(function() {
+			$("#cannon_barell_1").addClass("cannon_barell_1_animate");
+			$("#cannon_barell_2").addClass("cannon_barell_2_animate");
+			$("#bullet_1").removeClass("hidden");
+			$("#fire_1").removeClass("hidden");
+			$("#bullet_1").addClass("bullet_1_animate");
+			document.getElementById('audiotag1').pause();
+			document.getElementById('audiotag1').play();
+			document.getElementById('audiotag1').currentTime=0;
+			window.setTimeout( remove_animation_cannon, 200 );
+			window.setTimeout( remove_animation_bullet, 500 );
+			window.setTimeout( remove_animation_fire, 50 );
+		});
+	});
+
+	function remove_animation_cannon(){
+   		$("#cannon_barell_1").removeClass("cannon_barell_1_animate");
+		$("#cannon_barell_2").removeClass("cannon_barell_2_animate");
+		
+   	};
+
+   	function remove_animation_bullet(){
+		$("#bullet_1").addClass("hidden");
+		$("#bullet_1").removeClass("cannon_barell_2_animate");
+   	}; 
+
+   	function remove_animation_fire(){
+		$("#fire_1").addClass("hidden");
+   	};
+		
+	</script>
+</head>
+<body>
+
+<div id="battleground">
+	<img src="img/cannon_barell_1.png" id="cannon_barell_1" class="cannon_barell_1"/>
+	<img src="img/cannon_barell_2.png" id="cannon_barell_2" class="cannon_barell_2"/>
+	<img src="img/bullet_1.png" id="bullet_1" class="hidden bullet_1"/>
+	<img src="img/fire.png" id="fire_1" class="hidden fire_1"/>
+	<button id="shoot_1">shoot</button>
+
+
+	<audio id="audiotag1" src="sound/cannon_shoot.mp3" preload="auto"></audio>
+</div>
+
+</body>
+</html>
